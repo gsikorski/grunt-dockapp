@@ -11,7 +11,7 @@ module.exports = function (grunt) {
 
     var config = {
         name: 'dockapp:default',
-        dockerDir: './docker',
+        image: './docker',
         ports: [],
         env: {},
         portBind: {},
@@ -29,7 +29,7 @@ module.exports = function (grunt) {
                   grunt.file.exists(config.image + '/Dockerfile')) {
             // Create new image from Docker file
             return new Promise(function (resolve, reject) {
-                    var tarStream = tar.pack(config.dockerDir);
+                    var tarStream = tar.pack(config.image);
                     docker.buildImage(tarStream, {
                             t: config.name
                         }, function (error, output) {
@@ -55,7 +55,6 @@ module.exports = function (grunt) {
         } else {
             // Create new image from known image
             return new Promise(function (resolve, reject) {
-                    var tarStream = tar.pack(config.dockerDir);
                     docker.createImage({
                             fromImage: config.image,
                             tag: config.name
