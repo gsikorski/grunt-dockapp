@@ -174,8 +174,8 @@ module.exports = function (grunt) {
         var done = this.async();
 
         var tasks = [
-            createImage,
             removeContainer,
+            createImage,
             createContainer,
             attachContainer,
             startContainer
