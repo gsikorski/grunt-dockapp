@@ -42,7 +42,7 @@ grunt.initConfig({
       env: {
         mongodb: '172.17.0.1:27017'         // Use hosts database settings in application
       },
-      buildDir: __dirname + '/build',
+      volumes: [__dirname + ':/root'],
       portBind: {
         '443/tcp': '8443'
       }
@@ -80,7 +80,7 @@ Supported options:
  * **command** Array with command and arguments passed. This should be a command which will start your server. Default is `[ 'node', 'app.js' ]`
  * **ports** Array of ports to expose from the container. _dockapp_ normally always expose ports `80/tcp` and `443/tcp`, so you do not need to provide this option. If you want to expose extra ports (e. g. mongodb database port), you can do this here
  * **env** JSON object defining extra environment variable for the process
- * **buildDir** Host directory you want to bind into docker filesystem. Directory will be bound to `/root` path inside docker. This has to be absolute path.
+ * **volumes** Array of host volumes you want to bind into docker filesystem, specified in `</path/to/host/dir>:</container/path>` format. Both have to be absolute paths.
  * **portBind** Port binding for your local filesystem. By default no ports will be used, so you only can access your application using docker container's IP (172.17.0.X:80 or 172.17.0.X:443). If for some reason you want to link your container's ports to your local host, you can define mapping in this option.
 
 Contributing

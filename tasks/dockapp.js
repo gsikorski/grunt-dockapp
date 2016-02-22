@@ -1,8 +1,6 @@
 'use strict';
 
 module.exports = function (grunt) {
-
-    require('es6-promise').polyfill();
     var path = require('path');
     var denodeify = require('denodeify');
     var tar = require('tar-fs');
@@ -15,7 +13,7 @@ module.exports = function (grunt) {
         ports: [],
         env: {},
         portBind: {},
-        buildDir: 'build',
+        volumes: [],
         command: [
             'node', 'app.js'
         ]
@@ -150,8 +148,8 @@ module.exports = function (grunt) {
                 ];
             }
         }
-        if (config.buildDir) {
-            opts.Binds = [ config.buildDir + ':/root' ];
+        if (config.volumes && config.volumes.length) {
+            opts.Binds = config.volumes;
         }
         return denodeify(container.start.bind(container))(opts)
             .then(function (data) {
@@ -168,7 +166,7 @@ module.exports = function (grunt) {
         config.ports        = options.ports     || config.ports;
         config.env          = options.env       || config.env;
         config.portBind     = options.portBind  || config.portBind;
-        config.buildDir     = options.buildDir;
+        config.volumes      = options.volumes   || config.volumes;
         config.command      = options.command   || config.command;
         
         var done = this.async();
