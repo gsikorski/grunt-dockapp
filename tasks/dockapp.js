@@ -151,6 +151,9 @@ module.exports = function (grunt) {
         if (config.volumes && config.volumes.length) {
             opts.Binds = config.volumes;
         }
+        if (config.capabilities) {
+            opts.CapAdd = config.capabilities;
+        }
         return denodeify(container.start.bind(container))(opts)
             .then(function (data) {
                 grunt.log.ok('Container ' + container.id + ' is running.');
@@ -168,7 +171,8 @@ module.exports = function (grunt) {
         config.portBind     = options.portBind  || config.portBind;
         config.volumes      = options.volumes   || config.volumes;
         config.command      = options.command   || config.command;
-        
+        config.capabilities = options.capabilities;
+
         var done = this.async();
 
         var tasks = [
