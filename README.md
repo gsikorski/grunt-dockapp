@@ -25,7 +25,7 @@ Installation
 ```bash
 npm install --save-dev grunt-dock
 ```
- 
+
 Grunt configuration
 -------------------
 
@@ -82,6 +82,7 @@ Supported options:
  * **env** JSON object defining extra environment variable for the process
  * **volumes** Array of host volumes you want to bind into docker filesystem, specified in `</path/to/host/dir>:</container/path>` format. Both have to be absolute paths.
  * **portBind** Port binding for your local filesystem. By default no ports will be used, so you only can access your application using docker container's IP (172.17.0.X:80 or 172.17.0.X:443). If for some reason you want to link your container's ports to your local host, you can define mapping in this option.
+ * **capabilities** Array of capabilities (priviledges) the docker container starts with. For priviledged network operations add `["NET_ADMIN"]`.
 
 Contributing
 ------------
